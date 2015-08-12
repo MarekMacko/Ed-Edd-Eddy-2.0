@@ -16,6 +16,7 @@ public:
 	void Render(void);
 
 private:
-
+	bool useShaders;
+	CShader Shader;
 };
 

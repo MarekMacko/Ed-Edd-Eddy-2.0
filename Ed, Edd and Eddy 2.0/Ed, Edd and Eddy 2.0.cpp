@@ -28,22 +28,12 @@ int main(int argc, char * argv[])
 	glutReshapeFunc(OnReshape);
 	glutKeyboardFunc(OnKeyPress);
 	glutKeyboardUpFunc(OnKeyUp);
+	glutSpecialFunc(OnSpecialKeyPress);
+	glutSpecialUpFunc(OnSpecialKeyUp);
 	glutTimerFunc(17, OnTimer, 0);
-
-	// Wlaczenie testu glebokosci.
-	glEnable(GL_DEPTH_TEST);
-
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
-
-	/lEnable(GL_NORMALIZE);
-
-	glEnable(GL_LIGHTING);
-
-	// Ustawiamy komponent ambient naszej sceny - wartosc niezalezna od swiatla (warto zresetowac)
-	float gl_amb[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, gl_amb);
+	
+	// Inicjalizacja GLEW sluzacego do wygodnego korzystania z funkcji rozszerzen OpenGL
+	glewInit();
 
 	Scene = new CScene();
 	Scene->Initialize();
@@ -57,15 +47,6 @@ int main(int argc, char * argv[])
 }
 
 void OnRender() {
-	// Wyczysc zawartosc bufora koloru i glebokosci.
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	// Wybor macierzy, ktora od tej pory bedziemy modyfikowac
-	// - macierz Modelu/Widoku.
-	glMatrixMode(GL_MODELVIEW);
-
-	// Zaladowanie macierzy jednostkowej.
-	glLoadIdentity();
 
 	Scene->Render();
 
@@ -125,7 +106,6 @@ void OnKeyUp(unsigned char key, int x, int y) {
 void OnSpecialKeyUp(int key, int x, int y) {
 	keystate_special[key] = false;
 }
-
 
 void OnTimer(int id) {
 	glutTimerFunc(17, OnTimer, 0);
