@@ -8,6 +8,7 @@
 #include <GL\freeglut.h>
 
 #include "Ed, Edd and Eddy 2.0.h"
+#include "Vec3.h"
 
 #include <stdio.h>
 #include <iostream>
