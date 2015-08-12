@@ -17,11 +17,14 @@ using namespace std;
 #include <GL\glut.h>
 
 #include "Vec3.h"
+#include "Bitmap.h"
+#include "Texture.h"
 
 #include "Ed, Edd and Eddy 2.0.h"
 
 #include "SceneObject.h"
 #include "Player.h"
+#include "Terrain.h"
 
 
 

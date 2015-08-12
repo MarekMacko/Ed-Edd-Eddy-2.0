@@ -1,6 +1,10 @@
 #include "stdafx.h"
 
+#pragma region Zmienne globalne
 
+	CScene * Scene;
+
+#pragma endregion
 
 int main(int argc, char * argv[])
 {
@@ -23,7 +27,19 @@ int main(int argc, char * argv[])
 	// Wlaczenie testu glebokosci.
 	glEnable(GL_DEPTH_TEST);
 
-	std::cout << "Hello World!" << std::endl;
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CCW);
+
+	glEnable(GL_NORMALIZE);
+
+	glEnable(GL_LIGHTING);
+
+	//float gl_amb[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, gl_amb);
+
+	Scene = new CScene();
+	Scene->Initialize();
 
 	// Rozpoczecie wykonywania petli glownej. Od tego momentu
 	// wplyw na przebieg dzialania programu maja wylacznie zarejestrowane
@@ -34,10 +50,8 @@ int main(int argc, char * argv[])
 }
 
 void OnRender() {
-	static int frame;
 	// Wyczysc zawartosc bufora koloru i glebokosci.
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClear(GL_DEPTH_BUFFER_BIT);
 
 	// Wybor macierzy, ktora od tej pory bedziemy modyfikowac
 	// - macierz Modelu/Widoku.
@@ -46,21 +60,7 @@ void OnRender() {
 	// Zaladowanie macierzy jednostkowej.
 	glLoadIdentity();
 
-	// Przesuniecie swiata (przeciwienstwo przesuniecia kamery).
-	glTranslatef(0.0f, 0.0f, -6.0f);
-
-	// Obrot kamery - aby zatrzymac ja w miejscu, nalezy zakomentowac.
-	glRotatef(frame++, 0.0f, 1.0f, 0.0f);
-
-	// Rysowanie obiektow na scenie.
-
-	// Porostopad³oœcian
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glPushMatrix();
-	glTranslatef(0.0f, 0.5f, 0.0f);
-	glScalef(4.0f, 0.5f, 0.5f);
-	glutSolidCube(1.0f);
-	glPopMatrix();
+	Scene->Render();
 
 	// Jesli instrukcje w danej implementacji OpenGL byly buforowane,
 	// w tym momencie bufor zostanie oprozniony a instrukcje wykonane.

@@ -6,6 +6,8 @@
 class CScene
 {
 public:
+	CTerrain * Terrain;
+	CPlayer Player;
 
 	CScene();
 	~CScene();
