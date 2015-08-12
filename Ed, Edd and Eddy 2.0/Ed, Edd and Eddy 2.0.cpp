@@ -3,6 +3,9 @@
 #pragma region Zmienne globalne
 
 	CScene * Scene;
+	
+	bool keystate[256];
+	bool keystate_special[256];
 
 #pragma endregion
 
@@ -23,6 +26,9 @@ int main(int argc, char * argv[])
 	// kazdorazowo gdy potrzeba przerysowac zawartosc okna.
 	glutDisplayFunc(OnRender);
 	glutReshapeFunc(OnReshape);
+	glutKeyboardFunc(OnKeyPress);
+	glutKeyboardUpFunc(OnKeyUp);
+	glutTimerFunc(17, OnTimer, 0);
 
 	// Wlaczenie testu glebokosci.
 	glEnable(GL_DEPTH_TEST);
@@ -31,12 +37,13 @@ int main(int argc, char * argv[])
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
 
-	glEnable(GL_NORMALIZE);
+	/lEnable(GL_NORMALIZE);
 
 	glEnable(GL_LIGHTING);
 
-	//float gl_amb[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, gl_amb);
+	// Ustawiamy komponent ambient naszej sceny - wartosc niezalezna od swiatla (warto zresetowac)
+	float gl_amb[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, gl_amb);
 
 	Scene = new CScene();
 	Scene->Initialize();
@@ -86,4 +93,42 @@ void OnReshape(int width, int height) {
 	// Chcemy uzyc kamery perspektywicznej o kacie widzenia 60 stopni
 	// i zasiegu renderowania 0.01-100.0 jednostek.
 	gluPerspective(60.0f, (float)width / height, .01f, 100.0f);
+}
+
+void OnKeyPress(unsigned char key, int x, int y) {
+	if (!keystate[key]) {		
+		OnKeyDown(key, x, y);
+	}
+	keystate[key] = true;
+}
+
+void OnSpecialKeyPress(int key, int x, int y) {
+	if (!keystate_special[key]) {
+		OnSpecialKeyDown(key, x, y);		
+	}
+	keystate_special[key] = true;
+}
+
+void OnKeyDown(unsigned char key, int x, int y) {
+	if (key == 27) {
+		glutLeaveMainLoop();
+	}
+}
+
+void OnSpecialKeyDown(int key, int x, int y) {
+}
+
+void OnKeyUp(unsigned char key, int x, int y) {
+	keystate[key] = false;
+}
+
+void OnSpecialKeyUp(int key, int x, int y) {
+	keystate_special[key] = false;
+}
+
+
+void OnTimer(int id) {
+	glutTimerFunc(17, OnTimer, 0);
+
+	Scene->Update();
 }

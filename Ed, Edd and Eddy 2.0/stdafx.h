@@ -29,3 +29,10 @@ using namespace std;
 
 
 #include "Scene.h"
+
+#pragma region Zmienne globalne
+
+	extern bool keystate[256];
+	extern bool keystate_special[256];
+
+#pragma region

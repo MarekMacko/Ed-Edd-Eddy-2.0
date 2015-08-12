@@ -28,6 +28,58 @@ void CScene::Initialize(void) {
 
 void CScene::Update(void) {
 
+#pragma region Ruch kamery
+
+	// Zmiana predkosci gracza jesli wcisniete W/S/A/D
+	if (keystate['w']) {
+		Player.velM = Player.speed;
+	}
+	if (keystate['s']) {
+		Player.velM = -Player.speed;
+	}
+	if (keystate['a']) {
+		Player.velS = -Player.speed;
+	}
+	if (keystate['d']) {
+		Player.velS = Player.speed;
+	}
+
+	// Obrot kamery
+	float phi = atan2(Player.dir.z, Player.dir.x);
+	if (keystate['q']) {
+		phi -= 0.02f * Player.speed;
+	}
+	if (keystate['e']) {
+		phi += 0.02f * Player.speed;
+	}
+
+	Player.dir.x = cos(phi);
+	Player.dir.z = sin(phi);
+
+	// Znalezienie kierunku prostopad³ego
+	vec3 per;
+	per.x = -Player.dir.z;
+	per.y = 0;
+	per.z = Player.dir.x;
+
+	// Chodzenie przód/ty³
+	Player.pos.x += Player.dir.x * Player.velM * .1f;
+	Player.pos.y += Player.dir.y * Player.velM * .1f;
+	Player.pos.z += Player.dir.z * Player.velM * .1f;
+
+	// Chodzenie na boki
+	Player.pos.x += per.x * Player.velS * .1f;
+	Player.pos.z += per.z * Player.velS * .1f;
+
+	// Bezw³adnoœæ - w ka¿dym cyklu maleje prêdkoœæ gracza
+	Player.velM /= 1.2;
+	Player.velS /= 1.2;
+
+#pragma endregion
+	//system("cls");
+	cout << Player.pos.x << endl <<
+			Player.pos.y << endl <<
+			Player.pos.z << endl;
 }
 
 void CScene::Render(void) {
