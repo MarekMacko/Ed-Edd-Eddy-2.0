@@ -72,7 +72,7 @@ struct vec3 {
 		return(x == v.x && y == v.y && z == v.z);
 	}
 
-	float Length() {
+	float Length() {	
 		return sqrt(x * x + y * y + z * z);
 	}
 
