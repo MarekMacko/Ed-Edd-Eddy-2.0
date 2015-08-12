@@ -5,15 +5,22 @@
 
 #pragma once
 
-
+using namespace std;
 
 #include <stdio.h>
 #include <iostream>
 #include <cmath>
+
 #include <GL\freeglut.h>
+#include <GL\GL.h>
+#include <GL\GLU.h>
+#include <GL\glut.h>
+
+#include "Vec3.h"
 
 #include "Ed, Edd and Eddy 2.0.h"
-#include "Vec3.h"
+
+#include "SceneObject.h"
 #include "Player.h"
 
 
