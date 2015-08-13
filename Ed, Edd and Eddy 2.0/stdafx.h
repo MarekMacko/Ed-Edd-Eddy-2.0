@@ -11,6 +11,7 @@ using namespace std;
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include <vector>
 
 #include <GL\glew.h>
 #include <GL\freeglut.h>

@@ -15,4 +15,6 @@ public:
 	virtual void Update(void) = 0; // Aktualizacja stanu obiektu - wywo³ywana cyklicznie.
 	virtual void Render(void) = 0; // Rysowanie obiektu - wywo³ywane zawsze podczas rysowania tego elementu sceny.
 
+protected:
+	GLuint LoadObj(const char *);
 };
