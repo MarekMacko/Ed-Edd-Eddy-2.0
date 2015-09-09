@@ -6,6 +6,9 @@ CShader::CShader()
 
 CShader::~CShader()
 {
+	if (shadingProgramId) {
+		glDeleteProgram(shadingProgramId);
+	}
 }
 
 // Funkcja, ktora ma za zadanie utworzyc shader danego typu (GL_VERTEX_SHADER/GL_FRAGMENT_SHADER)
@@ -61,22 +64,22 @@ void CShader::CreateShadingProgram(char vsPath[], char fsPath[]) {
 	GLuint fs = CreateShader(GL_FRAGMENT_SHADER, fsPath);
 	
 	// Utworzenie nowego programu cieniuj¹cego, OpenGL zwróci jego identyfikator
-	shadingProgram = glCreateProgram();
+	shadingProgramId = glCreateProgram();
 
-	// Pod³¹czenie Vertex i Fragment shaderów do naszego nowegu programu, korzysajaæ z id shaderów 
-	glAttachShader(shadingProgram, vs);
-	glAttachShader(shadingProgram, fs);
+	// Pod³¹czenie Vertex i Fragment shaderów do naszego nowegu programu, korzystaj¹æ z id shaderów 
+	glAttachShader(shadingProgramId, vs);
+	glAttachShader(shadingProgramId, fs);
 
 	// Linkowanie programu po pod³¹czeniu shaderów
-	glLinkProgram(shadingProgram);
+	glLinkProgram(shadingProgramId);
 
 	// Sprawdzenie czy wyst¹pi³y b³êdy linkowania i ich wypisanie
 	int status;
-	glGetProgramiv(shadingProgram, GL_LINK_STATUS, &status);
+	glGetProgramiv(shadingProgramId, GL_LINK_STATUS, &status);
 	if (status == GL_FALSE) {
-		cerr << "Error while linking shader program (" << shadingProgram << ").\n";
+		cerr << "Error while linking shader program (" << shadingProgramId << ").\n";
 		GLchar * buf = new GLchar[512];
-		glGetShaderInfoLog(shadingProgram, 512, NULL, buf);
+		glGetShaderInfoLog(shadingProgramId, 512, NULL, buf);
 		cerr << buf << "\n";
 		delete[] buf;
 		return;
@@ -85,7 +88,7 @@ void CShader::CreateShadingProgram(char vsPath[], char fsPath[]) {
 }
 
 GLuint CShader::GetShadingProgram(void) {
-	return shadingProgram;
+	return shadingProgramId;
 }
 
 

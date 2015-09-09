@@ -11,7 +11,7 @@ public:
 	void CreateShadingProgram(char[], char[]);
 
 private:
-	GLuint shadingProgram;
+	GLuint shadingProgramId;
 	GLuint CreateShader(GLenum, char[]);
 };
 

@@ -8,13 +8,13 @@ class CScene
 public:
 	CTerrain * Terrain;
 	CPlayer Player;
-
+	CCharacter * Character;
 	CScene();
 	~CScene();
 	void Initialize(void);
 	void Update(void);
 	void Render(void);
-
+	
 private:
 	bool useShaders;
 	CShader Shader;

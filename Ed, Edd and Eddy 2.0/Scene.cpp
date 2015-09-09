@@ -39,6 +39,10 @@ void CScene::Initialize(void) {
 	Terrain = new CTerrain();
 	Terrain->Initialize();
 
+	Character = new CCharacter();
+	Character->LoadFiles("Resources\\Characters\\Ed\\Ed.obj", "Resources\\Characters\\Ed\\Ed.bmp");
+	Character->Initialize();
+
 #pragma endregion
 
 #pragma region Shadery
@@ -94,8 +98,8 @@ void CScene::Update(void) {
 	Player.pos.z += per.z * Player.velS * .1f;
 
 	// Bezw³adnoœæ - w ka¿dym cyklu maleje prêdkoœæ gracza
-	Player.velM /= 1.2;
-	Player.velS /= 1.2;
+	Player.velM /= 1.2f;
+	Player.velS /= 1.2f;
 
 #pragma endregion
 
@@ -143,6 +147,7 @@ void CScene::Render(void) {
 		glUseProgram(0);
 		cout << "Shaders disabled" << endl;
 	}
+
 #pragma region Œwiat³o
 
 	float l0_amb[] = { 0.2f, 0.2f, 0.2f, 1.0f };
@@ -167,28 +172,36 @@ void CScene::Render(void) {
 	glPushMatrix();
 	glTranslatef(0.0f, 2.5f, -6.0f);
 	glScalef(4.0f, 0.5f, 0.5f);
-	glRotatef((GLfloat)frame, 0.0f, 1.0f, 0.0f);
+	//glRotatef((GLfloat)frame, 0.0f, 1.0f, 0.0f);
 	glutSolidTeapot(1.0f);
 	glPopMatrix();
 
+	Terrain->Render();
+
 #pragma region Kula 1
 
-	float m1_amb[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-	float m1_dif[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-	float m1_spe[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	glMaterialfv(GL_FRONT, GL_AMBIENT, m1_amb);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, m1_dif);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, m1_spe);
-	glMaterialf(GL_FRONT, GL_SHININESS, 20.0f);
+	//float m1_amb[] = { 1.0f, 0.0f, 0.0f, 1.0f };
+	//float m1_dif[] = { 1.0f, 0.0f, 0.0f, 1.0f };
+	//float m1_spe[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	//glMaterialfv(GL_FRONT, GL_AMBIENT, m1_amb);
+	//glMaterialfv(GL_FRONT, GL_DIFFUSE, m1_dif);
+	//glMaterialfv(GL_FRONT, GL_SPECULAR, m1_spe);
+	//glMaterialf(GL_FRONT, GL_SHININESS, 20.0f);
 
-	glPushMatrix();
-	glTranslatef(-2.0f, 2.0f, 0.0f);
-	glutSolidCylinder(1.0f, 32, 32, 32);
-	glPopMatrix();
+	//glPushMatrix();
+	//glTranslatef(-2.0f, 2.0f, 0.0f);
+	//glutSolidCylinder(1.0f, 32, 32, 32);
+	//glPopMatrix();
 
 #pragma endregion
 
-	Terrain->Render();
+
+
+#pragma endregion
+
+#pragma region Debugowanie
+
+	Character->Render();
 
 #pragma endregion
 

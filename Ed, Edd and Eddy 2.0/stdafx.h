@@ -24,15 +24,14 @@ using namespace std;
 #include "Bitmap.h"
 #include "Texture.h"
 #include "Shader.h"
+#include "Obj.h"
 
 #include "Ed, Edd and Eddy 2.0.h"
 
 #include "SceneObject.h"
-#include "Player.h"
 #include "Terrain.h"
-
-
-
+#include "Character.h"
+#include "Player.h"
 #include "Scene.h"
 
 #pragma region Zmienne globalne
@@ -40,4 +39,4 @@ using namespace std;
 	extern bool keystate[256];
 	extern bool keystate_special[256];
 
-#pragma region
+#pragma endregion

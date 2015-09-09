@@ -1,6 +1,6 @@
 #pragma once
 
-class CPlayer
+class CPlayer : public CCharacter
 {
 public:
 	vec3 pos;
