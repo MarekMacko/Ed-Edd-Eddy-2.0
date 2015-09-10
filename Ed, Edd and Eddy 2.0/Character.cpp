@@ -11,6 +11,8 @@ CCharacter::~CCharacter(void)
 
 void CCharacter::Initialize(void)
 {
+	Scale.Set(0.01f);
+
 	if (_fileObj) {
 		obj = new CObj(_fileObj);
 		if (obj->Load()) {
@@ -30,12 +32,13 @@ void CCharacter::Update(void)
 }
 
 void CCharacter::Render(void)
-{
+{	
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, _characterTexture->GetId());
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glPushMatrix();
 	glTranslatef(Position.x, Position.y, Position.z);
+	glScalef(Scale.x, Scale.z, Scale.z);
 	glCallList(_displayListId);
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);

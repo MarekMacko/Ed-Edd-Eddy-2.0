@@ -18,7 +18,7 @@ int main(int argc, char * argv[])
 	// Ustawienie parametrow okna i kontekstu OpenGL.
 	glutInitWindowPosition(100, 400);
 	glutInitWindowPosition(640, 360);
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // bufor klatki w formacie RGBA, double-buffered, z buforem glebokosci
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH); // bufor klatki w formacie RGBA, double-buffered, z buforem glebokosci
 															  														
 	glutCreateWindow("Ed, Edd & Eddy 2.0"); // Utworzenie wlasciwego okna i nadanie mu tytulu.
 
@@ -34,7 +34,7 @@ int main(int argc, char * argv[])
 	
 	// Inicjalizacja GLEW sluzacego do wygodnego korzystania z funkcji rozszerzen OpenGL
 	glewInit();
-
+	
 	Scene = new CScene();
 	Scene->Initialize();
 

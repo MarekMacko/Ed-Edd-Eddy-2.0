@@ -8,6 +8,7 @@ class CSceneObject {
 
 public:
 	vec3 Position; // Pozycja obiektu na scenie.
+	vec3 Scale; // Rozmiar obiektu na scenie.
 	char *Name; // Nazwa obiektu u³atwiaj¹ca ich rozpoznawanie (g³ównie programiœcie).
 	CSceneObject(void);
 	~CSceneObject(void);
