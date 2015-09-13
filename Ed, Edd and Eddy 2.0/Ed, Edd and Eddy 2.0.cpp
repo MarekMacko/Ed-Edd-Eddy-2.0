@@ -94,6 +94,9 @@ void OnKeyDown(unsigned char key, int x, int y) {
 	if (key == 27) {
 		glutLeaveMainLoop();
 	}
+	if (key == ' ') {
+		Scene->useShaders = !Scene->useShaders;
+	}
 }
 
 void OnSpecialKeyDown(int key, int x, int y) {

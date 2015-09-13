@@ -12,7 +12,7 @@ CCharacter::~CCharacter(void)
 void CCharacter::Initialize(void)
 {
 	Scale.Set(0.01f);
-
+	Position.z = -1.0f;
 	if (_fileObj) {
 		obj = new CObj(_fileObj);
 		if (obj->Load()) {

@@ -4,7 +4,6 @@
 varying vec3 N;
 varying vec3 v; 
 
-
 void main() {
 
 	// Wyliczenie polozenia wierzcholka uwzgledniajacego macierz modelu-widoku-projekcji

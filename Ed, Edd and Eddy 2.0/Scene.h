@@ -15,8 +15,10 @@ public:
 	void Update(void);
 	void Render(void);
 	
-private:
 	bool useShaders;
-	CShader Shader;
+
+private:
+	CShader * MaterialShader;
+	CShader * TextureShader;
 };
 

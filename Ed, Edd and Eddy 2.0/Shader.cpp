@@ -2,6 +2,7 @@
 
 CShader::CShader()
 {
+	shadingProgramId = NULL;
 }
 
 CShader::~CShader()
@@ -79,7 +80,7 @@ void CShader::CreateShadingProgram(char vsPath[], char fsPath[]) {
 	if (status == GL_FALSE) {
 		cerr << "Error while linking shader program (" << shadingProgramId << ").\n";
 		GLchar * buf = new GLchar[512];
-		glGetShaderInfoLog(shadingProgramId, 512, NULL, buf);
+		glGetProgramInfoLog(shadingProgramId, 512, NULL, buf);
 		cerr << buf << "\n";
 		delete[] buf;
 		return;

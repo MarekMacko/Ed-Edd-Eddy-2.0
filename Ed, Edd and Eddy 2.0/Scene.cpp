@@ -39,14 +39,18 @@ void CScene::Initialize(void) {
 	Terrain->Initialize();
 
 	Character = new CCharacter();
-	Character->LoadFiles("Resources\\Characters\\Ed\\Ed.obj", "Resources\\Characters\\Ed\\Ed.bmp");
+	Character->LoadFiles("Resources\\Characters\\Ed\\Ed.obj", "Resources\\Characters\\Ed\\Edx.bmp");
 	Character->Initialize();
 
 #pragma endregion
 
 #pragma region Shadery
 
-	Shader.CreateShadingProgram("Shaders\\Basic.vert", "Shaders\\Basic.frag");
+	MaterialShader = new CShader();
+	MaterialShader->CreateShadingProgram("Shaders\\Material.vert", "Shaders\\Material.frag");
+
+	TextureShader = new CShader();
+	TextureShader->CreateShadingProgram("Shaders\\Texture.vert", "Shaders\\Texture.frag");
 
 #pragma endregion
 }
@@ -103,10 +107,6 @@ void CScene::Update(void) {
 #pragma endregion
 
 #pragma region Debugowanie
-
-	if (keystate['h']) {
-		useShaders = !useShaders;
-	}
 	
 	//system("cls");
 	//cout << Player.pos.x << endl <<
@@ -139,7 +139,7 @@ void CScene::Render(void) {
 #pragma endregion
 
 	if (useShaders) {
-		glUseProgram(Shader.GetShadingProgram());
+		glUseProgram(TextureShader->GetShadingProgram());
 		//cout << "Shaders enabled" << endl;
 	}
 	else {
