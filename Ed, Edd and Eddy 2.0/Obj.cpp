@@ -13,6 +13,9 @@ CObj::CObj(char * file)
 
 CObj::~CObj()
 {
+	if (_displayListId) {
+		glDeleteLists(_displayListId, 1);
+	}
 }
 
 bool CObj::Load(void) {
@@ -30,7 +33,7 @@ bool CObj::Load(void) {
 
 	if (err != NULL) {
 		printf("ERROR: Cannot read model file \"%s\".\n", _file);
-		cout << strerror(err);
+		cout << strerror(err) << endl;
 		return false;
 	}
 	
