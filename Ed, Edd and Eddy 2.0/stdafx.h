@@ -25,6 +25,7 @@ using namespace std;
 #include "Texture.h"
 #include "Shader.h"
 #include "Obj.h"
+#include "MD2Model.h"
 
 #include "Ed, Edd and Eddy 2.0.h"
 

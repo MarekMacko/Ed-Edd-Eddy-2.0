@@ -50,7 +50,7 @@ void CTerrain::Render(void)
 	glTranslatef(Position.x, Position.y, Position.z);
 
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, _grassTexture->GetId());
+	glBindTexture(GL_TEXTURE_2D, _grassTexture->GetID());
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 
 	glCallList(_displayListId);

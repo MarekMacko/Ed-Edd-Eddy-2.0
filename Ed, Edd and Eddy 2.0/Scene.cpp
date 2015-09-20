@@ -21,7 +21,7 @@ void CScene::Initialize(void) {
 	glShadeModel(GL_SMOOTH); // Wybór techniki cieniowania
 	glEnable(GL_LIGHT0); // W³¹czenie 0-go ³a œwiat
 
-	//glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE); // wy³acza rysowanie tylnych stron wielok¹tów
 	//glCullFace(GL_BACK);
 	//glFrontFace(GL_CCW);
 
@@ -51,6 +51,14 @@ void CScene::Initialize(void) {
 
 	TextureShader = new CShader();
 	TextureShader->CreateShadingProgram("Shaders\\Texture.vert", "Shaders\\Texture.frag");
+
+#pragma endregion
+
+#pragma region Debugowanie
+
+	Player.speed -= 0.9f;
+	md2model = new CMD2Model();
+	md2model->Load("Resources\\MD2\\Ogros.md2", "Resources\\MD2\\ed.bmp");
 
 #pragma endregion
 }
@@ -173,6 +181,13 @@ void CScene::Render(void) {
 
 	Character->Render();
 
+	glPushMatrix();
+		glTranslatef(0.5f, 0.22f, -1.0f);
+		glScalef(0.01f, 0.01f, 0.01f);
+		glRotatef(-90, 1, 0, 0);
+		glRotatef(-90, 0, 0, 1);
+		md2model->Animate(0, 249, 0.02);
+	glPopMatrix();
 	static double frame = 0;
 
 	frame += 0.5;

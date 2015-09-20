@@ -31,6 +31,9 @@ bool CTexture::Load(void)
 		return false;
 	}
 
+	width = tex->width;
+	height = tex->height;
+
 	glGenTextures(1, &_id);
 
 	glBindTexture(GL_TEXTURE_2D, _id);
@@ -52,11 +55,18 @@ bool CTexture::Load(void)
 	return true;
 }
 
-GLuint CTexture::GetId(void)
+GLuint CTexture::GetID(void)
 {
 	if (!IsLoaded) {
 		Load();
 	}
 	return _id;
+}
+
+int CTexture::GetWidth(void) {
+	return width;
+}
+int CTexture::GetHeight(void) {
+	return height;
 }
 

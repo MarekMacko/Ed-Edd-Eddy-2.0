@@ -111,4 +111,14 @@ struct vec3 {
 		y *= s.y;
 		z *= s.z;
 	}
+
+	float Dot(vec3 b) {
+		return x * b.x + y * b.y + z * b.z;
+	}
+
+	static void Cross(vec3 a, vec3 b, vec3 &c) {
+		c.x = a.y * b.z - a.z * b.y;
+		c.y = a.z * b.x - a.x * b.z;
+		c.z = a.x * b.y - a.y * b.x;
+	}
 };

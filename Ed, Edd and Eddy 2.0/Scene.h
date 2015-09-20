@@ -9,6 +9,7 @@ public:
 	CTerrain * Terrain;
 	CPlayer Player;
 	CCharacter * Character;
+	CMD2Model * md2model;
 	CScene();
 	~CScene();
 	void Initialize(void);
