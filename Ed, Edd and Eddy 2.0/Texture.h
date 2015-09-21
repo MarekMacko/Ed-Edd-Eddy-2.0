@@ -12,7 +12,9 @@ public:
 	GLuint GetID(void);
 	int GetWidth(void);
 	int GetHeight(void);
-protected:
+
+private:
+	char type;
 	int _magFilter;
 	int _minFilter;
 	char * _file;

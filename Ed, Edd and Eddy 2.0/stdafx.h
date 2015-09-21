@@ -10,6 +10,7 @@ using namespace std;
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <cmath>
 #include <vector>
 
@@ -22,6 +23,7 @@ using namespace std;
 
 #include "Vec3.h"
 #include "Bitmap.h"
+#include "Pcx.h"
 #include "Texture.h"
 #include "Shader.h"
 #include "Obj.h"

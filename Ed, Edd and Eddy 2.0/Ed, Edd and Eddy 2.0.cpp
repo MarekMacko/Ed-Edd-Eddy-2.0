@@ -16,7 +16,7 @@ int main(int argc, char * argv[])
 	glutInit(&argc, argv);
 
 	// Ustawienie parametrow okna i kontekstu OpenGL.
-	glutInitWindowPosition(100, 400);
+	//glutInitWindowPosition(100, 400);
 	glutInitWindowPosition(640, 360);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH); // bufor klatki w formacie RGBA, double-buffered, z buforem glebokosci
 															  														

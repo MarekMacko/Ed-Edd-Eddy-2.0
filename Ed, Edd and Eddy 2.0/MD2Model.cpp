@@ -13,11 +13,12 @@ CMD2Model::CMD2Model()
 	triIndex = NULL;	// indeksy wspó³rzêdnych tekstury		
 	vertexList = NULL;	// lista wierzcho³ków
 	modelTex = NULL;	// tekstura
-	//modelState 
+	modelState = STAND;
 }
 
 CMD2Model::~CMD2Model() 
 {
+	Unload();
 }
 
 void CMD2Model::SetupSkin(texture_t *thisTexture)
@@ -195,11 +196,9 @@ int CMD2Model::Load(char *modelFile, char *skinFile)
 		}
 	}
 
-	tex = new CTexture("Resources\\MD2\\ed.bmp");
-	tex->Load();
-
-	if (!tex)
-		return FALSE;
+	tex = new CTexture(skinFile, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR);
+	if(!tex->Load())
+		return false;
 		
 	//modelTex = NULL; //LoadTexture(skinFile);
 	//if (modelTex != NULL)
@@ -331,7 +330,7 @@ int CMD2Model::Animate(int startFrame, int endFrame, float percent)
 	vList = &vertexList[numVertices*currentFrame];
 	nextVList = &vertexList[numVertices*nextFrame];
 
-//	glBindTexture(GL_TEXTURE_2D, modelTex->texID);
+	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, tex->GetID());
 	glBegin(GL_TRIANGLES);
 		for (i = 0; i < numTriangles; i++)
@@ -389,7 +388,7 @@ int CMD2Model::Animate(int startFrame, int endFrame, float percent)
 			glVertex3fv((const GLfloat*)&vertex[1]);
 		}
 		glEnd();
-
+		glDisable(GL_TEXTURE_2D);
 		interpol += percent; // zwiêksza wpsó³czynnik interpolacji
 		
 		return 0;
@@ -404,7 +403,7 @@ int CMD2Model::RenderFrame(int keyFrame)
 	vList = &vertexList[numVertices * keyFrame];
 
 	// wybiera teksturê
-	glBindTexture(GL_TEXTURE_2D, modelTex->texID);
+	glBindTexture(GL_TEXTURE_2D, tex->GetID());
 
 	// wyœwietla klatkê modelu
 	glBegin(GL_TRIANGLES);
@@ -442,3 +441,40 @@ int CMD2Model::Unload()
 
 	return 0;
 }
+
+void CMD2Model::SetState(modelState_t state) {
+	modelState = state;
+}
+
+modelState_t CMD2Model::GetState(void) {
+	return modelState;
+}
+
+
+
+anim_t CMD2Model::animlist[21] =
+{
+	// first, last, fps
+
+	{ 0,  39,  9 },		// STAND
+	{ 40,  45, 10 },	// RUN
+	{ 46,  53, 10 },	// ATTACK
+	{ 54,  57,  7 },	// PAIN_A
+	{ 58,  61,  7 },	// PAIN_B
+	{ 62,  65,  7 },	// PAIN_C
+	{ 66,  71,  7 },	// JUMP
+	{ 72,  83,  7 },	// FLIP
+	{ 84,  94,  7 },	// SALUTE
+	{ 95, 111, 10 },	// FALLBACK
+	{ 112, 122,  7 },	// WAVE
+	{ 123, 134,  6 },	// POINT
+	{ 135, 153, 10 },	// CROUCH_STAND
+	{ 154, 159,  7 },	// CROUCH_WALK
+	{ 160, 168, 10 },	// CROUCH_ATTACK
+	{ 196, 172,  7 },	// CROUCH_PAIN
+	{ 173, 177,  5 },	// CROUCH_DEATH
+	{ 178, 183,  7 },	// DEATH_FALLBACK
+	{ 184, 189,  7 },	// DEATH_FALLFORWARD
+	{ 190, 197,  7 },	// DEATH_FALLBACKSLOW
+	{ 198, 198,  5 },	// BOOM
+};

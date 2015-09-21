@@ -21,9 +21,7 @@ void CCharacter::Initialize(void)
 	}
 	if (_fileTexture) {
 		_characterTexture = new CTexture(_fileTexture, GL_LINEAR, GL_LINEAR_MIPMAP_LINEAR);
-		if (!_characterTexture->Load()) {
-			_characterTexture = NULL;
-		}
+		_characterTexture->Load();		
 	}
 }
 

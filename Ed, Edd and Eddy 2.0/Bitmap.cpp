@@ -1,13 +1,3 @@
-//File: Bitmap.cpp
-//Written by:     Mark Bernard
-//on GameDev.net: Captain Jester
-//e-mail: mark.bernard@rogers.com
-//Please feel free to use and abuse this code as much
-//as you like.  But, please give me some credit for
-//starting you off on the right track.
-//
-//The file Bitmap.h goes along with this file
-//
 #include "stdafx.h"
 
 //basic constructor
@@ -18,7 +8,7 @@ Bitmap::Bitmap() {
 //constructor loads the bitmap when it is created
 Bitmap::Bitmap(char *file) {
 	reset();
-	loadBMP(file);
+	LoadBMP(file);
 }
 
 //destructor
@@ -33,7 +23,7 @@ Bitmap::~Bitmap() {
 
 //load a bitmap from a file and represent it correctly
 //in memory
-bool Bitmap::loadBMP(char *file) {
+bool Bitmap::LoadBMP(char *file) {
 	FILE *in;                  //file stream for reading
 	char *tempData;       //temp storage for image data
 	int numColours;            //total available colours
@@ -46,7 +36,7 @@ bool Bitmap::loadBMP(char *file) {
 	if (data != 0) {
 		delete[] data;
 	}
-
+	
 	//open the file for reading in binary mode
 	//in = fopen(file, "rb");
 	err = fopen_s(&in, file, "rb");
@@ -164,7 +154,7 @@ bool Bitmap::convert24(char* tempData) {
 
 	diff = width*height*RGB_BYTE_SIZE;
 	//allocate the buffer for the final image data
-	data = new char[diff];
+	data = new unsigned char[diff];
 
 	//exit if there is not enough memory
 	if (data == NULL) {
@@ -218,7 +208,7 @@ bool Bitmap::convert8(char* tempData) {
 
 	diff = width*height*RGB_BYTE_SIZE;
 	//allocate the buffer for the final image data
-	data = new char[diff];
+	data = new unsigned char[diff];
 
 	//exit if there is not enough memory
 	if (data == NULL) {

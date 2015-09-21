@@ -39,7 +39,7 @@ void CScene::Initialize(void) {
 	Terrain->Initialize();
 
 	Character = new CCharacter();
-	Character->LoadFiles("Resources\\Characters\\Ed\\Ed.obj", "Resources\\Characters\\Ed\\Edx.bmp");
+	Character->LoadFiles("Resources\\Characters\\Ed\\Ed.obj", "Resources\\Characters\\Ed\\Ed.bmp");
 	Character->Initialize();
 
 #pragma endregion
@@ -56,9 +56,9 @@ void CScene::Initialize(void) {
 
 #pragma region Debugowanie
 
-	Player.speed -= 0.9f;
+	Player.speed -= 0.5f;
 	md2model = new CMD2Model();
-	md2model->Load("Resources\\MD2\\Ogros.md2", "Resources\\MD2\\ed.bmp");
+	md2model->Load("Resources\\MD2\\Ogros.md2", "Resources\\MD2\\igdosh.pcx");
 
 #pragma endregion
 }
@@ -117,7 +117,6 @@ void CScene::Update(void) {
 #pragma region Debugowanie
 	
 	//system("cls");
-	//cout << Player.pos.x << endl <<
 	//	Player.pos.y << endl <<
 	//	Player.pos.z << endl;
 #pragma endregion
@@ -162,7 +161,7 @@ void CScene::Render(void) {
 	float l0_amb[] = { .2f, .2f, .2f, 1.0f };
 	float l0_dif[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	float l0_spe[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	float l0_pos[] = {0.0f, 2.0f, 2.0f, 1.0f }; 
+	float l0_pos[] = {0.0f, 2.0f, 0.0f, 0.0f }; 
 	glLightfv(GL_LIGHT0, GL_POSITION, l0_pos); 
 	glLightfv(GL_LIGHT0, GL_AMBIENT, l0_amb);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, l0_dif);
@@ -175,19 +174,22 @@ void CScene::Render(void) {
 	Terrain->Render();
 
 #pragma endregion
-
+	
 #pragma region Debugowanie
 
 
-	Character->Render();
+	
 
 	glPushMatrix();
 		glTranslatef(0.5f, 0.22f, -1.0f);
 		glScalef(0.01f, 0.01f, 0.01f);
 		glRotatef(-90, 1, 0, 0);
 		glRotatef(-90, 0, 0, 1);
-		md2model->Animate(0, 249, 0.02);
+		md2model->RenderFrame(40);
+		md2model->Animate(0, 190, 0.02);
 	glPopMatrix();
+
+	Character->Render();
 	static double frame = 0;
 
 	frame += 0.5;
@@ -203,7 +205,7 @@ void CScene::Render(void) {
 	glMaterialf(GL_FRONT, GL_SHININESS, 20.0f);
 
 	glPushMatrix();
-		glTranslatef(2.0f, 2.0f, -2.0f);
+		glTranslatef(2.0f, 1.0f, -2.0f);
 		glRotatef((GLfloat)frame, 0.0f, 1.0f, 0.0f);
 		//glScalef(0.5f, 0.5f, 0.5f);
 		glutSolidSphere(1.0f, 10, 10);
@@ -218,7 +220,7 @@ void CScene::Render(void) {
 	glMaterialf(GL_FRONT, GL_SHININESS, 20.0f);
 
 	glPushMatrix();
-		glTranslatef(-2.0f, 2.0f, -2.0f);
+		glTranslatef(-2.0f, 1.0f, -2.0f);
 		glutSolidSphere(1.0f, 10, 10);
 	glPopMatrix();
 

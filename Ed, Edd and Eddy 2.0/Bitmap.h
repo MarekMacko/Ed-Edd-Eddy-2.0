@@ -4,12 +4,6 @@
 //Written by:     Mark Bernard
 //on GameDev.net: Captain Jester
 //e-mail: mark.bernard@rogers.com
-//Please feel free to use and abuse this code as much
-//as you like.  But, please give me some credit for
-//starting you off on the right track.
-//
-//The file Bitmap.cpp goes along with this file
-//
 #include <iostream>
 #include <cstdio>
 #include <string>
@@ -55,7 +49,7 @@ class Bitmap {
 public:
 	//variables
 	RGBQuad *colours;
-	char *data;
+	unsigned char *data;
 	bool loaded;
 	int width, height;
 	unsigned short bpp;
@@ -64,15 +58,15 @@ public:
 	Bitmap(void);
 	Bitmap(char *);
 	~Bitmap();
-	bool loadBMP(char *);
+	bool LoadBMP(char *);
 private:
 	//variables
 	BitmapFileHeader bmfh;
 	BitmapInfoHeader bmih;
 	int byteWidth;            //the width in bytes of the image
 	int padWidth;             //the width in bytes of the added image
-	unsigned int dataSize;                //size of the data in the file
-										  //methods
+	unsigned int dataSize;    //size of the data in the file
+	//methods
 	void reset(void);
 	bool convert24(char *);		//convert to 24bit RGB bottom up data
 	bool convert8(char *);		//convert to 24bit RGB bottom up data
