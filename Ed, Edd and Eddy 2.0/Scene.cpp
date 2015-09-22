@@ -70,6 +70,13 @@ void CScene::Update(void) {
 	// Zmiana predkosci gracza jesli wcisniete W/S/A/D
 	if (keystate['w']) {
 		Player.velM = Player.speed;
+		md2model->SetState(RUN);
+	}
+	if (!keystate['w']) {
+		md2model->SetState(STAND);
+	}
+	if (keystate['j']) {
+		md2model->SetState(SALUTE);
 	}
 	if (keystate['s']) {
 		Player.velM = -Player.speed;
@@ -116,9 +123,11 @@ void CScene::Update(void) {
 
 #pragma region Debugowanie
 	
-	//system("cls");
-	//	Player.pos.y << endl <<
-	//	Player.pos.z << endl;
+	CTimer::GetInstance()->Update();
+	float time = CTimer::GetInstance()->GetTimeMSec();
+	cout << fixed << setprecision(4)
+		 << "\rtime:" << time / 1000.0
+		 << "  fps:" << CTimer::GetInstance()->GetFps();
 #pragma endregion
 
 }
@@ -161,7 +170,7 @@ void CScene::Render(void) {
 	float l0_amb[] = { .2f, .2f, .2f, 1.0f };
 	float l0_dif[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	float l0_spe[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	float l0_pos[] = {0.0f, 2.0f, 0.0f, 0.0f }; 
+	float l0_pos[] = {0.0f, -2.0f, 0.0f, 1.0f }; 
 	glLightfv(GL_LIGHT0, GL_POSITION, l0_pos); 
 	glLightfv(GL_LIGHT0, GL_AMBIENT, l0_amb);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, l0_dif);
@@ -177,15 +186,12 @@ void CScene::Render(void) {
 	
 #pragma region Debugowanie
 
-
-	
-
 	glPushMatrix();
 		glTranslatef(0.5f, 0.22f, -1.0f);
 		glScalef(0.01f, 0.01f, 0.01f);
 		glRotatef(-90, 1, 0, 0);
 		glRotatef(-90, 0, 0, 1);
-		md2model->RenderFrame(40);
+		//md2model->RenderFrame(40);
 		md2model->Animate(0, 190, 0.02);
 	glPopMatrix();
 
@@ -194,7 +200,7 @@ void CScene::Render(void) {
 
 	frame += 0.5;
 
-//	glDisable(GL_LIGHTING);
+	//glDisable(GL_LIGHTING);
 
 	float m0_amb[] = { 1.0f, 0.0f, 0.0f, 1.0f };
 	float m0_dif[] = { 1.0f, 0.0f, 0.0f, 1.0f };
@@ -224,7 +230,7 @@ void CScene::Render(void) {
 		glutSolidSphere(1.0f, 10, 10);
 	glPopMatrix();
 
-//	glEnable(GL_LIGHTING);
+	//glEnable(GL_LIGHTING);
 
 #pragma endregion
 

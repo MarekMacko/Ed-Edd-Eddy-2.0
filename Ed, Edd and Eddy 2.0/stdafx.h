@@ -9,6 +9,7 @@ using namespace std;
 
 #include <stdio.h>
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
 #include <cmath>
@@ -22,6 +23,7 @@ using namespace std;
 
 
 #include "Vec3.h"
+#include "Timer.h"
 #include "Bitmap.h"
 #include "Pcx.h"
 #include "Texture.h"
@@ -36,6 +38,8 @@ using namespace std;
 #include "Character.h"
 #include "Player.h"
 #include "Scene.h"
+
+
 
 #pragma region Zmienne globalne
 

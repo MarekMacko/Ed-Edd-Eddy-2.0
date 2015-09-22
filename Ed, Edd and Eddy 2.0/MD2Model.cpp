@@ -302,8 +302,10 @@ int CMD2Model::Animate(int startFrame, int endFrame, float percent)
 	int i;				// zmienna indeksu
 	float x1, y1, z1;	// wspó³rzêdne wierzcholka bie¿¹cej klatki
 	float x2, y2, z2;	// wspó³rzêdne wierzcholka nsatêpnej klatki
-
 	vec3 vertex[3];
+
+	startFrame = animlist[modelState].first_frame;
+	endFrame = animlist[modelState].last_frame;
 
 	if (startFrame > currentFrame)
 		currentFrame = startFrame;
